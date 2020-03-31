@@ -14,3 +14,5 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('/panel', 'PanelController@index')->name('panel');
