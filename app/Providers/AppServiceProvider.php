@@ -25,10 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Gate::define('add-user', function ($user) {
-            return $user->isAdmin
-                        ? Response::allow()
-                        : Response::deny('You must be a super administrator.');
+        Gate::define('super-admin', function ($user) {
+            return $user->isAdmin ? true : false;
         });
     }
 }
