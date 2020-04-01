@@ -15,8 +15,11 @@ class UsersTableSeeder extends Seeder
     {
         $password = Hash::make('123456');
         DB::table('users')->insert([
-            ['name' => 'Sefa Aras', 'email' => 'sefaaras@ktu.edu.tr', 'password' => $password], 
-            ['name' => 'Hamdi Tolga Kahraman', 'email' => 'htolgakahraman@ktu.edu.tr', 'password' => $password]
+            'name' => 'Sefa Aras', 
+            'email' => 'sefaaras@ktu.edu.tr', 
+            'password' => $password,
+            'isActive' => true,
+            'isAdmin' => true
         ]);
     }
 }
