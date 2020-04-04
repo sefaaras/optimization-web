@@ -13,6 +13,7 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@home')->name('home');
 
-Route::get('/panel', 'PanelController@index')->name('panel');
+Route::get('/panel', 'PanelController@home')->name('panel');
+Route::get('/panel/user-management', 'PanelController@users')->name('user-management');

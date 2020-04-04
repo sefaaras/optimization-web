@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use DB;
 
 class PanelController extends Controller
 {
@@ -11,8 +11,14 @@ class PanelController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function home()
     {
         return view('panel.home');
+    }
+
+    public function users() 
+    {
+        $users = DB::table('users')->where('isAdmin', false)->get();
+        return view('panel.users')->with('users', $users);
     }
 }
