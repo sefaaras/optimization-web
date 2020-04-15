@@ -11,9 +11,14 @@
 |
 */
 
+use App\Http\Controllers\PanelController;
+
 Auth::routes();
 
 Route::get('/', 'HomeController@home')->name('home');
 
 Route::get('/panel', 'PanelController@home')->name('panel');
+
 Route::get('/panel/user-management', 'PanelController@users')->name('user-management');
+Route::get('/panel/user-list', 'PanelController@userList');
+Route::post('/panel/add-user', 'PanelController@addUser');
