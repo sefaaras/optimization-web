@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -21,13 +20,13 @@ class PanelController extends Controller
 
     public function users() 
     {
-        $users = DB::table('users')->where('isAdmin', false)->get();
+        $users = User::where('isAdmin', false)->get();
         return view('panel.users')->with('users', $users);
     }
 
     public function userList() 
     {
-        $users = DB::table('users')->where('isAdmin', false)->get();
+        $users = User::where('isAdmin', false)->get();
         return response()->json($users, 200);
     }
 
@@ -42,7 +41,31 @@ class PanelController extends Controller
         $user->save();
 
         return response()->json([
-            'message' => 'New user created'
+            'message' => 'User created'
         ]);           
+    }
+
+    public function updateUser(Request $request)
+    {
+        $user = User::whereId($request->id)->firstOrFail();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->isActive = $request->isActive;
+        $user->isAdmin = $request->isAdmin;    
+        $user->save();
+
+        return response()->json([
+            'message' => 'User updated'
+        ]);           
+    }
+
+    public function deleteUser(Request $request)
+    {
+        $user = User::whereId($request->id)->firstOrFail();
+        $user->delete();
+
+        return response()->json([
+            'message' => 'User deleted'
+        ]);          
     }
 }

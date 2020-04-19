@@ -22,3 +22,5 @@ Route::get('/panel', 'PanelController@home')->name('panel');
 Route::get('/panel/user-management', 'PanelController@users')->name('user-management');
 Route::get('/panel/user-list', 'PanelController@userList');
 Route::post('/panel/add-user', 'PanelController@addUser');
+Route::post('/panel/update-user', 'PanelController@updateUser');
+Route::post('/panel/delete-user', 'PanelController@deleteUser');

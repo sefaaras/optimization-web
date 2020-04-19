@@ -118,6 +118,7 @@
         editedItem: {
           name: '',
           email: '',
+          password: '',
           isActive: 0,
           isAdmin: 0
         },
@@ -160,7 +161,13 @@
 
         deleteItem (item) {
           const index = this.users.indexOf(item)
-          confirm('Are you sure you want to delete this item?') && this.users.splice(index, 1)
+          if(confirm('Are you sure you want to delete this user?')) {
+            axios.post('/panel/delete-user', {
+              id: item.id,
+            }).then((response)=>{
+              this.users.splice(index, 1)     
+            }).catch(error => console.log(error.response)) 
+          }
         },
 
         close () {
@@ -173,7 +180,16 @@
 
         save () {
           if (this.editedIndex > -1) {
-            Object.assign(this.users[this.editedIndex], this.editedItem)
+            axios.post('/panel/update-user', {
+              id: this.editedItem.id,
+              name: this.editedItem.name,
+              email: this.editedItem.email,
+              isActive: this.editedItem.isActive,
+              isAdmin: this.editedItem.isAdmin
+            }).then((response)=>{
+              Object.assign(this.users[this.editedIndex], this.editedItem)
+              this.close()     
+            }).catch(error => console.log(error.response)) 
           } else {
             axios.post('/panel/add-user', {
               name: this.editedItem.name,
