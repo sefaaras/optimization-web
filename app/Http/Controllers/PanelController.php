@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Algorithm;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -17,6 +18,10 @@ class PanelController extends Controller
     {
         return view('panel.home');
     }
+
+    /**
+     * User Section
+     */
 
     public function users() 
     {
@@ -66,6 +71,60 @@ class PanelController extends Controller
 
         return response()->json([
             'message' => 'User deleted'
+        ]);          
+    }
+
+    /**
+     * Algorithm Section
+     */
+
+    public function algorithms() 
+    {
+        $algorithms = Algorithm::all();
+        return view('panel.algorithms')->with('algorithms', $algorithms);
+    }
+
+    public function algorithmList() 
+    {
+        $algorithms = Algorithm::all();
+        return response()->json($algorithms, 200);
+    }
+
+    public function addAlgorithm(Request $request)
+    {
+        $algorithm = new Algorithm;
+        $algorithm->name = $request->name;
+        $algorithm->description = $request->description;
+        $algorithm->parameter = $request->parameter;
+        $algorithm->reference = $request->reference;  
+        $algorithm->save();
+
+        return response()->json([
+            'message' => 'Algorithm created'
+        ]);           
+    }
+
+    public function updateAlgorithm(Request $request)
+    {
+        $algorithm = Algorithm::whereId($request->id)->firstOrFail();
+        $algorithm->name = $algorithm->name;
+        $algorithm->description = $request->description;
+        $algorithm->parameter = $request->parameter;
+        $algorithm->reference = $request->reference;    
+        $algorithm->save();
+
+        return response()->json([
+            'message' => 'Algorithm updated'
+        ]);           
+    }
+
+    public function deleteAlgorithm(Request $request)
+    {
+        $algorithm = Algorithm::whereId($request->id)->firstOrFail();
+        $algorithm->delete();
+
+        return response()->json([
+            'message' => 'Algorithm deleted'
         ]);          
     }
 }

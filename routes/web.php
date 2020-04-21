@@ -24,3 +24,9 @@ Route::get('/panel/user-list', 'PanelController@userList');
 Route::post('/panel/add-user', 'PanelController@addUser');
 Route::post('/panel/update-user', 'PanelController@updateUser');
 Route::post('/panel/delete-user', 'PanelController@deleteUser');
+
+Route::get('/panel/algorithm-management', 'PanelController@algorithms')->name('algorithm-management');
+Route::get('/panel/algorithm-list', 'PanelController@algorithmList');
+Route::post('/panel/add-algorithm', 'PanelController@addAlgorithm');
+Route::post('/panel/update-algorithm', 'PanelController@updateAlgorithm');
+Route::post('/panel/delete-algorithm', 'PanelController@deleteAlgorithm');
